@@ -5,9 +5,14 @@ use warnings;
 
 use Class::Utils qw(set_params);
 use English;
+use Error::Pure qw(err);
 use Getopt::Std;
+use List::MoreUtils qw(none);
 use MARC::File::XML (BinaryEncoding => 'utf8', RecordFormat => 'MARC21');
+use Readonly;
 use Unicode::UTF8 qw(encode_utf8 decode_utf8);
+
+Readonly::Array our @OUTPUT_FORMATS => qw(ascii xml);
 
 our $VERSION = 0.01;
 
@@ -32,13 +37,15 @@ sub run {
 	# Process arguments.
 	$self->{'_opts'} = {
 		'h' => 0,
+		'o' => 'xml',
 		'r' => 0,
 	};
-	if (! getopts('hr', $self->{'_opts'}) || @ARGV < 4
+	if (! getopts('ho:r', $self->{'_opts'}) || @ARGV < 4
 		|| $self->{'_opts'}->{'h'}) {
 
-		print STDERR "Usage: $0 [-h] [-r] [--version] marc_xml_file field subfield value\n";
+		print STDERR "Usage: $0 [-h] [-o format] [-r] [--version] marc_xml_file field subfield value\n";
 		print STDERR "\t-h\t\tPrint help.\n";
+		print STDERR "\t-o format\tOutput MARC format. Possible formats are ascii, xml.\n";
 		print STDERR "\t-r\t\tUse value as Perl regexp.\n";
 		print STDERR "\t--version\tPrint version.\n";
 		print STDERR "\tmarc_xml_file\tMARC XML file.\n";
@@ -51,6 +58,11 @@ sub run {
 	$self->{'_marc_field'} = shift @ARGV;
 	$self->{'_marc_subfield'} = shift @ARGV;
 	$self->{'_marc_value'} = decode_utf8(shift @ARGV);
+
+	# Check output format.
+	if (none { $self->{'_opts'}->{'o'} eq $_ } @OUTPUT_FORMATS) {
+		err "Output format '$self->{'_opts'}->{'o'}' doesn't supported.";
+	}
 
 	my $marc_file = MARC::File::XML->in($self->{'_marc_xml_file'});
 	my @ret;
@@ -98,12 +110,27 @@ sub run {
 	}
 
 	# Print out.
+	$num = 0;
 	foreach my $ret (@ret) {
-		print encode_utf8($ret->as_formatted);
+		if (! $num) {
+			if ($self->{'_opts'}->{'o'} eq 'xml') {
+				print MARC::File::XML::header()."\n";
+			}
+		}
+
+		if ($self->{'_opts'}->{'o'} eq 'xml') {
+			print encode_utf8(MARC::File::XML::record($ret))."\n";
+		} elsif ($self->{'_opts'}->{'o'} eq 'ascii') {
+			print encode_utf8($ret->as_formatted)."\n";
+		}
+
+		$num++;
 	}
-	# TODO
-#use Data::Printer;
-#p @ret;
+	if ($num) {
+		if ($self->{'_opts'}->{'o'} eq 'xml') {
+			print MARC::File::XML::footer()."\n";
+		}
+	}
 	
 	return 0;
 }
