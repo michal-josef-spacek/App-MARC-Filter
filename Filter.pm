@@ -178,6 +178,9 @@ Returns 1 for error, 0 for success.
          From Class::Utils::set_params():
                  Unknown parameter '%s'.
 
+ run():
+         Output format '%s' doesn't supported.
+
 =head1 EXAMPLE
 
  use strict;
