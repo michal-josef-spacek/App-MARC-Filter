@@ -24,11 +24,11 @@ __END__
 
 =head1 NAME
 
-marc-count - Script to count records in MARC file.
+marc-filter - Script to filter records in MARC dataset.
 
 =head1 SYNOPSIS
 
- marc-count [-h] [--version] marc_xml_file field subfield value
+ marc-filter [-h] [-o format] [-r] [--version] marc_xml_file field subfield value
 
 =head1 DESCRIPTION
 
@@ -41,6 +41,16 @@ It supports MARC XML files now.
 =item * C<-h>
 
 Print help.
+
+=item * C<-o format>
+
+Output MARC format.
+
+Possible formats are ascii, xml.
+
+=item * C<-r>
+
+Use value as Perl regexp.
 
 =item * C<--version>
 
@@ -63,10 +73,6 @@ MARC subfield.
 MARC field/subfield value to filter.
 
 =back
-
-=head1 EXAMPLE
-
- marc-count __MARC.xml__ TODO
 
 =head1 REPOSITORY
 

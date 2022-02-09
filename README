@@ -1,8 +1,8 @@
 NAME
-    marc-count - Script to count records in MARC file.
+    marc-filter - Script to filter records in MARC dataset.
 
 SYNOPSIS
-     marc-count [-h] [--version] marc_xml_file field subfield value
+     marc-filter [-h] [-o format] [-r] [--version] marc_xml_file field subfield value
 
 DESCRIPTION
     It supports MARC XML files now.
@@ -11,6 +11,16 @@ ARGUMENTS
     *       "-h"
 
             Print help.
+
+    *       "-o format"
+
+            Output MARC format.
+
+            Possible formats are ascii, xml.
+
+    *       "-r"
+
+            Use value as Perl regexp.
 
     *       "--version"
 
@@ -31,9 +41,6 @@ ARGUMENTS
     *       "value"
 
             MARC field/subfield value to filter.
-
-EXAMPLE
-     marc-count __MARC.xml__ TODO
 
 REPOSITORY
     <https://github.com/michal-josef-spacek/App-MARC-Filter>
