@@ -21,8 +21,11 @@ readme_from 'bin/marc-filter';
 recursive_author_tests('xt');
 requires 'Class::Utils' => 0;
 requires 'English' => 0;
+requires 'Error::Pure' => 0;
 requires 'Getopt::Std' => 0;
+requires 'List::MoreUtils' => 0;
 requires 'MARC::File::XML' => 0;
+requires 'Readonly' => 0;
 requires 'Unicode::UTF8' => 0;
 resources 'bugtracker' => 'https://github.com/michal-josef-spacek/App-MARC-Filter/issues',
 resources 'homepage' => 'https://github.com/michal-josef-spacek/App-MARC-Filter';
