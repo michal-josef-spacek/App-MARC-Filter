@@ -99,7 +99,6 @@ sub run {
 						}
 					}
 					if ($match) {
-						# TODO Clone?
 						push @ret, $record;
 					}
 				}
