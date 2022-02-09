@@ -337,8 +337,11 @@ Returns 1 for error, 0 for success.
 
 L<Class::Utils>,
 L<English>,
+L<Error::Pure>,
 L<Getopt::Std>,
+L<List::MoreUtils>,
 L<MARC::File::XML>,
+L<Readonly>,
 L<Unicode::UTF8>.
 
 =head1 REPOSITORY
