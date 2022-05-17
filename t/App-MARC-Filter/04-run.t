@@ -6,7 +6,7 @@ use English;
 use File::Object;
 use File::Spec::Functions qw(abs2rel);
 use Perl6::Slurp qw(slurp);
-use Test::More 'tests' => 5;
+use Test::More 'tests' => 6;
 use Test::NoWarnings;
 use Test::Output;
 
@@ -89,4 +89,20 @@ stdout_is(
 	},
 	$right_ret,
 	'Run filter for MARC XML file with 1 record (015a ~ cnb).',
+);
+
+# Test.
+@ARGV = (
+	$data_dir->file('ex2.xml')->s,
+	'015',
+	'a',
+	'cnb001489030',
+);
+stderr_like(
+	sub {
+		App::MARC::Filter->new->run;
+		return;
+	},
+	qr{^Cannot process '1' record\. Error: Field 300 must have indicators \(use ' ' for empty indicators\)},
+	'Run filter for MARC XML file with 1 record (with error).',
 );
