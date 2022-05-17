@@ -1,9 +1,12 @@
 TODO
 ====
-2. Add output JSON.
 3. 
 
 Applied
 =======
 1. Add output option for MARC format (XML first)
 OK [20220209] skim
+
+2. Add output JSON.
+No official MARC JSON output.
+NONE [20220517] skim
