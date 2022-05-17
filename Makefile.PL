@@ -30,8 +30,12 @@ requires 'Unicode::UTF8' => 0;
 resources 'bugtracker' => 'https://github.com/michal-josef-spacek/App-MARC-Filter/issues',
 resources 'homepage' => 'https://github.com/michal-josef-spacek/App-MARC-Filter';
 resources 'repository' => 'git://github.com/michal-josef-spacek/App-MARC-Filter';
+test_requires 'English' => 0;
+test_requires 'File::Object' => 0;
+test_requires 'File::Spec::Functions' => 0;
 test_requires 'Test::More' => 0;
 test_requires 'Test::NoWarnings' => 0;
+test_requires 'Test::Output' => 0;
 tests_recursive;
 version '0.01';
 
