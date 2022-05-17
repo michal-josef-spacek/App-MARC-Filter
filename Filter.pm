@@ -331,9 +331,9 @@ Returns 1 for error, 0 for success.
  # Arguments.
  @ARGV = (
          $temp_file,
-	'015',
-	'a',
-	'cnb000000096',
+         '015',
+         'a',
+         'cnb000000096',
  );
 
  # Run.
