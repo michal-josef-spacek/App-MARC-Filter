@@ -8,6 +8,7 @@ build_requires:
   ExtUtils::MakeMaker: 6.59
   File::Object: 0
   File::Spec::Functions: 0
+  Perl6::Slurp: 0
   Test::More: 0
   Test::NoWarnings: 0
   Test::Output: 0

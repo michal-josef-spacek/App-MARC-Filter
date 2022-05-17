@@ -34,6 +34,7 @@ test_requires 'English' => 0;
 test_requires 'Error::Pure::Utils' => 0;
 test_requires 'File::Object' => 0;
 test_requires 'File::Spec::Functions' => 0;
+test_requires 'Perl6::Slurp' => 0;
 test_requires 'Test::More' => 0;
 test_requires 'Test::NoWarnings' => 0;
 test_requires 'Test::Output' => 0;

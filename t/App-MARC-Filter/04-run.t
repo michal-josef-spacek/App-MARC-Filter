@@ -5,10 +5,12 @@ use App::MARC::Filter;
 use English;
 use File::Object;
 use File::Spec::Functions qw(abs2rel);
-use Test::More 'tests' => 2;
+use Perl6::Slurp qw(slurp);
+use Test::More 'tests' => 5;
 use Test::NoWarnings;
 use Test::Output;
 
+my $data_dir = File::Object->new->up->dir('data');
 my $script = abs2rel(File::Object->new->file('04-run.t')->s);
 # XXX Hack for missing abs2rel on Windows.
 if ($OSNAME eq 'MSWin32') {
@@ -37,4 +39,54 @@ stderr_is(
 	},
 	$right_ret,
 	'Run help.',
+);
+
+# Test.
+@ARGV = (
+	$data_dir->file('ex1.xml')->s,
+	'015',
+	'a',
+	'cnb000000096',
+);
+$right_ret = slurp($data_dir->file('ex1.xml')->s);
+stdout_is(
+	sub {
+		App::MARC::Filter->new->run;
+		return;
+	},
+	$right_ret,
+	'Run filter for MARC XML file with 1 record (015a = cnb000000096).',
+);
+
+# Test.
+@ARGV = (
+	$data_dir->file('ex1.xml')->s,
+	'015',
+	'a',
+	'cnb',
+);
+stdout_is(
+	sub {
+		App::MARC::Filter->new->run;
+		return;
+	},
+	'',
+	'Run filter for MARC XML file with 1 record (015a = cnb).',
+);
+
+# Test.
+@ARGV = (
+	'-r',
+	$data_dir->file('ex1.xml')->s,
+	'015',
+	'a',
+	'cnb',
+);
+stdout_is(
+	sub {
+		App::MARC::Filter->new->run;
+		return;
+	},
+	$right_ret,
+	'Run filter for MARC XML file with 1 record (015a ~ cnb).',
 );
