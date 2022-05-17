@@ -14,7 +14,7 @@ use Unicode::UTF8 qw(encode_utf8 decode_utf8);
 
 Readonly::Array our @OUTPUT_FORMATS => qw(ascii xml);
 
-our $VERSION = 0.01;
+our $VERSION = 0.02;
 
 # Constructor.
 sub new {
@@ -462,6 +462,6 @@ BSD 2-Clause License
 
 =head1 VERSION
 
-0.01
+0.02
 
 =cut
