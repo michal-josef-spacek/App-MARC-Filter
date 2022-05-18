@@ -1,5 +1,6 @@
 0.02
  - Fix example in doc.
+ - Fix minimal dependency to MARC::File::XML (fixing of warning in tests).
 
 0.01 2022-05-17T14:25:13+02:00
  - First version.
