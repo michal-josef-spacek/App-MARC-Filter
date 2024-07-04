@@ -1,4 +1,5 @@
 0.03
+ - Add tests for run().
  - Rewrite arguments process to more intuitive way.
  - Rewrite run() tests to use help() helper.
  - Update Module::Install to 1.21 version.

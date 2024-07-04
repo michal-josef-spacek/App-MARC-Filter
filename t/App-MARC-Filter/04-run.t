@@ -3,12 +3,14 @@ use warnings;
 
 use App::MARC::Filter;
 use English;
+use Error::Pure::Utils qw(clean);
 use File::Object;
 use File::Spec::Functions qw(abs2rel);
 use Perl6::Slurp qw(slurp);
-use Test::More 'tests' => 6;
+use Test::More 'tests' => 10;
 use Test::NoWarnings;
 use Test::Output;
+use Test::Warn 0.31;
 
 my $data_dir = File::Object->new->up->dir('data');
 
@@ -23,7 +25,34 @@ stderr_is(
 		return;
 	},
 	$right_ret,
-	'Run help.',
+	'Run help (-h).',
+);
+
+# Test.
+@ARGV = ();
+$right_ret = help();
+stderr_is(
+	sub {
+		App::MARC::Filter->new->run;
+		return;
+	},
+	$right_ret,
+	'Run help (no arguments).',
+);
+
+# Test.
+@ARGV = (
+	'-x',
+);
+$right_ret = help();
+stderr_is(
+	sub {
+		warning_is { App::MARC::Filter->new->run; } "Unknown option: x\n",
+			'Warning about bad argument';
+		return;
+	},
+	$right_ret,
+	'Run help (-x - bad option).',
 );
 
 # Test.
@@ -75,6 +104,22 @@ stdout_is(
 	$right_ret,
 	'Run filter for MARC XML file with 1 record (015a ~ cnb).',
 );
+
+# Test.
+@ARGV = (
+	'-o',
+	'bad',
+	$data_dir->file('ex1.xml')->s,
+	'015',
+	'a',
+	'cnb',
+);
+eval {
+	App::MARC::Filter->new->run;
+};
+is($EVAL_ERROR, "Output format 'bad' doesn't supported.\n",
+	"Output format 'bad' doesn't supported.");
+clean();
 
 # Test.
 @ARGV = (
