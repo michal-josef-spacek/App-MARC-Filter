@@ -1,4 +1,4 @@
-0.03
+0.03 2024-07-04T13:43:13+02:00
  - Add tests for run().
  - Rewrite arguments process to more intuitive way.
  - Rewrite run() tests to use help() helper.
