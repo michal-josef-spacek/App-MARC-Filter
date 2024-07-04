@@ -11,27 +11,12 @@ use Test::NoWarnings;
 use Test::Output;
 
 my $data_dir = File::Object->new->up->dir('data');
-my $script = abs2rel(File::Object->new->file('04-run.t')->s);
-# XXX Hack for missing abs2rel on Windows.
-if ($OSNAME eq 'MSWin32') {
-	$script =~ s/\\/\//msg;
-}
 
 # Test.
 @ARGV = (
 	'-h',
 );
-my $right_ret = <<"END";
-Usage: $script [-h] [-o format] [-r] [--version] marc_xml_file field subfield value
-	-h		Print help.
-	-o format	Output MARC format. Possible formats are ascii, xml.
-	-r		Use value as Perl regexp.
-	--version	Print version.
-	marc_xml_file	MARC XML file.
-	field		MARC field.
-	subfield	MARC subfield.
-	value		MARC field/subfield value to filter.
-END
+my $right_ret = help();
 stderr_is(
 	sub {
 		App::MARC::Filter->new->run;
@@ -106,3 +91,24 @@ stderr_like(
 	qr{^Cannot process '1' record\. Error: Field 300 must have indicators \(use ' ' for empty indicators\)},
 	'Run filter for MARC XML file with 1 record (with error).',
 );
+
+sub help {
+	my $script = abs2rel(File::Object->new->file('04-run.t')->s);
+	# XXX Hack for missing abs2rel on Windows.
+	if ($OSNAME eq 'MSWin32') {
+		$script =~ s/\\/\//msg;
+	}
+	my $help = <<"END";
+Usage: $script [-h] [-o format] [-r] [--version] marc_xml_file field subfield value
+	-h		Print help.
+	-o format	Output MARC format. Possible formats are ascii, xml.
+	-r		Use value as Perl regexp.
+	--version	Print version.
+	marc_xml_file	MARC XML file.
+	field		MARC field.
+	subfield	MARC subfield.
+	value		MARC field/subfield value to filter.
+END
+
+	return $help;
+}
