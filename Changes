@@ -1,6 +1,7 @@
 0.03
  - Rewrite arguments process to more intuitive way.
  - Rewrite run() tests to use help() helper.
+ - Update Module::Install to 1.21 version.
 
 0.02 2022-05-18T12:26:15+02:00
  - Fix example in doc.
