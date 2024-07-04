@@ -40,8 +40,9 @@ sub run {
 		'o' => 'xml',
 		'r' => 0,
 	};
-	if (! getopts('ho:r', $self->{'_opts'}) || @ARGV < 4
-		|| $self->{'_opts'}->{'h'}) {
+	if (! getopts('ho:r', $self->{'_opts'})
+		|| $self->{'_opts'}->{'h'}
+		|| @ARGV < 4) {
 
 		print STDERR "Usage: $0 [-h] [-o format] [-r] [--version] marc_xml_file field subfield value\n";
 		print STDERR "\t-h\t\tPrint help.\n";

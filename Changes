@@ -1,4 +1,5 @@
 0.03
+ - Rewrite arguments process to more intuitive way.
  - Rewrite run() tests to use help() helper.
 
 0.02 2022-05-18T12:26:15+02:00
