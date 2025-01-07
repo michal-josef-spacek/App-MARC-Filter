@@ -16,6 +16,8 @@ Readonly::Array our @OUTPUT_FORMATS => qw(ascii xml);
 
 our $VERSION = 0.04;
 
+$| = 1;
+
 # Constructor.
 sub new {
 	my ($class, @params) = @_;
@@ -39,15 +41,17 @@ sub run {
 		'h' => 0,
 		'o' => 'xml',
 		'r' => 0,
+		'v' => 0,
 	};
-	if (! getopts('ho:r', $self->{'_opts'})
+	if (! getopts('ho:rv', $self->{'_opts'})
 		|| $self->{'_opts'}->{'h'}
 		|| @ARGV < 4) {
 
-		print STDERR "Usage: $0 [-h] [-o format] [-r] [--version] marc_xml_file field subfield value\n";
+		print STDERR "Usage: $0 [-h] [-o format] [-r] [-v] [--version] marc_xml_file field subfield value\n";
 		print STDERR "\t-h\t\tPrint help.\n";
 		print STDERR "\t-o format\tOutput MARC format. Possible formats are ascii, xml.\n";
 		print STDERR "\t-r\t\tUse value as Perl regexp.\n";
+		print STDERR "\t-v\t\tVerbose mode.\n";
 		print STDERR "\t--version\tPrint version.\n";
 		print STDERR "\tmarc_xml_file\tMARC XML file.\n";
 		print STDERR "\tfield\t\tMARC field.\n";
@@ -108,6 +112,10 @@ sub run {
 					}
 				}
 			}
+		}
+
+		if ($self->{'_opts'}->{'v'}) {
+			print STDERR '.';
 		}
 
 		$num++;

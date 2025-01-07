@@ -144,10 +144,11 @@ sub help {
 		$script =~ s/\\/\//msg;
 	}
 	my $help = <<"END";
-Usage: $script [-h] [-o format] [-r] [--version] marc_xml_file field subfield value
+Usage: $script [-h] [-o format] [-r] [-v] [--version] marc_xml_file field subfield value
 	-h		Print help.
 	-o format	Output MARC format. Possible formats are ascii, xml.
 	-r		Use value as Perl regexp.
+	-v		Verbose mode.
 	--version	Print version.
 	marc_xml_file	MARC XML file.
 	field		MARC field.
