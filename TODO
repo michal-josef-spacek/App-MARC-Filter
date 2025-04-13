@@ -3,7 +3,8 @@ TODO
 3. Another tests.
 4. Add support for usmarc input.
 6. Filter by number of records, then skip.
-7.
+7. Filter by control fields.
+8.
 
 Applied
 =======
