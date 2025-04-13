@@ -24,13 +24,16 @@ __END__
 
 =head1 NAME
 
-marc-filter - Script to filter records in MARC dataset.
+marc-filter - Tool to filter records in MARC dataset.
 
 =head1 SYNOPSIS
 
  marc-filter [-h] [-n num] [-o format] [-r] [--version] marc_xml_file field [subfield] value
 
 =head1 DESCRIPTION
+
+Tool to filter MARC records in big datasets. Could filter by field/subfield or
+leader and/or by number of output records.
 
 It supports MARC XML files now.
 

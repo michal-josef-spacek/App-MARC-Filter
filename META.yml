@@ -1,5 +1,5 @@
 ---
-abstract: 'Base class and script for filter MARC records.'
+abstract: 'Tool to filter records in MARC dataset.'
 author:
   - 'Michal Josef Spacek <skim@cpan.org>'
 build_requires:
