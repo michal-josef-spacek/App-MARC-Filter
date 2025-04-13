@@ -28,7 +28,7 @@ marc-filter - Script to filter records in MARC dataset.
 
 =head1 SYNOPSIS
 
- marc-filter [-h] [-o format] [-r] [--version] marc_xml_file field subfield value
+ marc-filter [-h] [-o format] [-r] [--version] marc_xml_file field [subfield] value
 
 =head1 DESCRIPTION
 
@@ -64,13 +64,17 @@ MARC XML file name.
 
 MARC field.
 
+Field number or 'leader' string.
+
 =item * C<subfield>
 
 MARC subfield.
 
+It's optional in case of 'leader'.
+
 =item * C<value>
 
-MARC field/subfield value to filter.
+MARC field/subfield or leader value to filter.
 
 =back
 
