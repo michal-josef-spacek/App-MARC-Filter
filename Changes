@@ -1,4 +1,4 @@
-0.04
+0.04 2025-04-13T09:05:18+02:00
  - Add -n option to number of output records.
  - Add support for leader filtering.
  - Add verbose mode.
