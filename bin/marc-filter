@@ -28,7 +28,7 @@ marc-filter - Script to filter records in MARC dataset.
 
 =head1 SYNOPSIS
 
- marc-filter [-h] [-o format] [-r] [--version] marc_xml_file field [subfield] value
+ marc-filter [-h] [-n num] [-o format] [-r] [--version] marc_xml_file field [subfield] value
 
 =head1 DESCRIPTION
 
@@ -41,6 +41,12 @@ It supports MARC XML files now.
 =item * C<-h>
 
 Print help.
+
+=item * C<-n num>
+
+Number of records to output,
+
+Default value is all records to output.
 
 =item * C<-o format>
 

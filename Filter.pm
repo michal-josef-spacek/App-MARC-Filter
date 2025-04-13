@@ -39,11 +39,12 @@ sub run {
 	# Process arguments.
 	$self->{'_opts'} = {
 		'h' => 0,
+		'n' => undef,
 		'o' => 'xml',
 		'r' => 0,
 		'v' => 0,
 	};
-	if (! getopts('ho:rv', $self->{'_opts'})
+	if (! getopts('hn:o:rv', $self->{'_opts'})
 		|| $self->{'_opts'}->{'h'}
 		|| @ARGV < 3) {
 
@@ -71,8 +72,13 @@ sub run {
 	my $marc_file = MARC::File::XML->in($self->{'_marc_xml_file'});
 	my @ret;
 	my $num = 1;
+	$self->{'_num_found'} = 0;
 	my $previous_record;
 	while (1) {
+		if (defined $self->{'_opts'}->{'n'} && int($self->{'_opts'}->{'n'}) == $self->{'_num_found'}) {
+			last;
+		}
+
 		my $record = eval {
 			$marc_file->next;
 		};
@@ -146,10 +152,12 @@ sub _match {
 
 	if ($self->{'_opts'}->{'r'}) {
 		if ($value =~ m/$self->{'_marc_value'}/ms) {
+			$self->{'_num_found'}++;
 			return ($record);
 		}
 	} else {
 		if ($value eq $self->{'_marc_value'}) {
+			$self->{'_num_found'}++;
 			return ($record);
 		}
 	}
@@ -160,8 +168,9 @@ sub _match {
 sub _usage {
 	my $self = shift;
 
-	print STDERR "Usage: $0 [-h] [-o format] [-r] [-v] [--version] marc_xml_file field [subfield] value\n";
+	print STDERR "Usage: $0 [-h] [-n num] [-o format] [-r] [-v] [--version] marc_xml_file field [subfield] value\n";
 	print STDERR "\t-h\t\tPrint help.\n";
+	print STDERR "\t-n num\t\tNumber of records to output (default value is all records).\n";
 	print STDERR "\t-o format\tOutput MARC format. Possible formats are ascii, xml.\n";
 	print STDERR "\t-r\t\tUse value as Perl regexp.\n";
 	print STDERR "\t-v\t\tVerbose mode.\n";

@@ -1,4 +1,5 @@
 0.04
+ - Add -n option to number of output records.
  - Add support for leader filtering.
  - Add verbose mode.
  - Update copyright years.

@@ -2,7 +2,6 @@ TODO
 ====
 3. Another tests.
 4. Add support for usmarc input.
-6. Filter by number of records, then skip.
 7. Filter by control fields.
 8.
 
@@ -16,4 +15,7 @@ No official MARC JSON output.
 NONE [20220517] skim
 
 5. Filter by leader.
+OK [20250413] skim
+
+6. Filter by number of records, then skip.
 OK [20250413] skim
