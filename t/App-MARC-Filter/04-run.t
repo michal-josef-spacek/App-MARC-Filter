@@ -7,7 +7,7 @@ use Error::Pure::Utils qw(clean);
 use File::Object;
 use File::Spec::Functions qw(abs2rel);
 use Perl6::Slurp qw(slurp);
-use Test::More 'tests' => 14;
+use Test::More 'tests' => 15;
 use Test::NoWarnings;
 use Test::Output;
 use Test::Warn 0.31;
@@ -135,6 +135,22 @@ stdout_is(
 	},
 	$right_ret,
 	'Run filter for MARC XML file with 1 record (leader = \'     nam a22        4500\').',
+);
+
+# Test.
+@ARGV = (
+	$data_dir->file('ex1.xml')->s,
+	'001',
+	'ck8300078',
+);
+$right_ret = slurp($data_dir->file('ex1.xml')->s);
+stdout_is(
+	sub {
+		App::MARC::Filter->new->run;
+		return;
+	},
+	$right_ret,
+	'Run filter for MARC XML file with 1 record (001 = \'ck8300078\').',
 );
 
 # Test.

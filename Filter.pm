@@ -7,12 +7,13 @@ use Class::Utils qw(set_params);
 use English;
 use Error::Pure qw(err);
 use Getopt::Std;
-use List::MoreUtils qw(none);
+use List::MoreUtils qw(any none);
 use MARC::File::XML (BinaryEncoding => 'utf8', RecordFormat => 'MARC21');
 use Readonly;
 use Unicode::UTF8 qw(encode_utf8 decode_utf8);
 
 Readonly::Array our @OUTPUT_FORMATS => qw(ascii xml);
+Readonly::Array our @CONTROL_FIELDS => qw(001 003 005 007 008);
 
 our $VERSION = 0.05;
 
@@ -53,7 +54,7 @@ sub run {
 	}
 	$self->{'_marc_xml_file'} = shift @ARGV;
 	$self->{'_marc_field'} = shift @ARGV;
-	if ($self->{'_marc_field'} ne 'leader') {
+	if ($self->{'_marc_field'} ne 'leader' && none { $_ eq $self->{'_marc_field'} } @CONTROL_FIELDS) {
 		$self->{'_marc_subfield'} = shift @ARGV;
 	}
 	$self->{'_marc_value'} = shift @ARGV;
@@ -97,9 +98,17 @@ sub run {
 		}
 		$previous_record = $record;
 
+		# Leader.
 		if ($self->{'_marc_field'} eq 'leader') {
 			my $leader = $record->leader;
 			push @ret, $self->_match($record, $leader);
+
+		# Control fields.
+		} elsif (any { $self->{'_marc_field'} eq $_ } @CONTROL_FIELDS) {
+			my $control_field = $record->field($self->{'_marc_field'});
+			push @ret, $self->_match($record, $control_field->as_string);
+
+		# Other.
 		} else {
 			my @fields = $record->field($self->{'_marc_field'});
 			foreach my $field (@fields) {
