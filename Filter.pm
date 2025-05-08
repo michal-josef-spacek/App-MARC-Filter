@@ -15,7 +15,7 @@ use Readonly;
 use Unicode::UTF8 qw(encode_utf8 decode_utf8);
 
 Readonly::Array our @OUTPUT_FORMATS => qw(ascii xml);
-Readonly::Array our @CONTROL_FIELDS => qw(001 003 005 007 008);
+Readonly::Array our @CONTROL_FIELDS => qw(001 003 005 006 007 008);
 
 our $VERSION = 0.05;
 
