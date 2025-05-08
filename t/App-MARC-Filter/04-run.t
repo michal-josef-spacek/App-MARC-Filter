@@ -241,7 +241,7 @@ sub help {
 		$script =~ s/\\/\//msg;
 	}
 	my $help = <<"END";
-Usage: $script [-h] [-n num] [-o format] [-r] [-v] [--version] marc_xml_file field [subfield] value
+Usage: $script [-h] [-n num] [-o format] [-r] [-v] [--version] marc_xml_file search_item [sub_search_item] value
 	-h		Print help.
 	-n num		Number of records to output (default value is all records).
 	-o format	Output MARC format. Possible formats are ascii, xml.
@@ -249,9 +249,9 @@ Usage: $script [-h] [-n num] [-o format] [-r] [-v] [--version] marc_xml_file fie
 	-v		Verbose mode.
 	--version	Print version.
 	marc_xml_file	MARC XML file.
-	field		MARC field (field number or 'leader' string).
-	subfield	MARC subfield (optional in case of leader).
-	value		MARC field/subfield value to filter.
+	search_item	Search item.
+	sub_search_item	Search sub item (required in case of MARC field).
+	value		Value to filter.
 END
 
 	return $help;

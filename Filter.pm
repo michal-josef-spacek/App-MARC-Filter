@@ -189,7 +189,7 @@ sub _match {
 sub _usage {
 	my $self = shift;
 
-	print STDERR "Usage: $0 [-h] [-n num] [-o format] [-r] [-v] [--version] marc_xml_file field [subfield] value\n";
+	print STDERR "Usage: $0 [-h] [-n num] [-o format] [-r] [-v] [--version] marc_xml_file search_item [sub_search_item] value\n";
 	print STDERR "\t-h\t\tPrint help.\n";
 	print STDERR "\t-n num\t\tNumber of records to output (default value is all records).\n";
 	print STDERR "\t-o format\tOutput MARC format. Possible formats are ascii, xml.\n";
@@ -197,9 +197,9 @@ sub _usage {
 	print STDERR "\t-v\t\tVerbose mode.\n";
 	print STDERR "\t--version\tPrint version.\n";
 	print STDERR "\tmarc_xml_file\tMARC XML file.\n";
-	print STDERR "\tfield\t\tMARC field (field number or 'leader' string).\n";
-	print STDERR "\tsubfield\tMARC subfield (optional in case of leader).\n";
-	print STDERR "\tvalue\t\tMARC field/subfield value to filter.\n";
+	print STDERR "\tsearch_item\tSearch item.\n";
+	print STDERR "\tsub_search_item\tSearch sub item (required in case of MARC field).\n";
+	print STDERR "\tvalue\t\tValue to filter.\n";
 
 	return;
 }
