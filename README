@@ -43,7 +43,23 @@ ARGUMENTS
 
             MARC field.
 
-            Field number or 'leader' string.
+            Field number or 'leader' string or material type string.
+
+            Possible material type strings are:
+
+            *   book
+
+            *   computer_file
+
+            *   continuing_resource
+
+            *   map
+
+            *   mixed_material
+
+            *   music
+
+            *   visual_material
 
     *       "subfield"
 

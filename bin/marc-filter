@@ -73,7 +73,27 @@ MARC XML file name.
 
 MARC field.
 
-Field number or 'leader' string.
+Field number or 'leader' string or material type string.
+
+Possible material type strings are:
+
+=over
+
+=item * book
+
+=item * computer_file
+
+=item * continuing_resource
+
+=item * map
+
+=item * mixed_material
+
+=item * music
+
+=item * visual_material
+
+=back
 
 =item * C<subfield>
 

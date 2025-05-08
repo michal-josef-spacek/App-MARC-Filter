@@ -2,7 +2,6 @@ TODO
 ====
 3. Another tests.
 4. Add support for usmarc input.
-8. Filter material type.
 9.
 
 Applied
@@ -21,4 +20,7 @@ OK [20250413] skim
 OK [20250413] skim
 
 7. Filter by control fields.
+OK [20250508] skim
+
+8. Filter material type.
 OK [20250508] skim

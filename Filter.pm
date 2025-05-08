@@ -9,6 +9,8 @@ use Error::Pure qw(err);
 use Getopt::Std;
 use List::Util 1.33 qw(any none);
 use MARC::File::XML (BinaryEncoding => 'utf8', RecordFormat => 'MARC21');
+use MARC::Leader;
+use MARC::Leader::Utils qw(material_type);
 use Readonly;
 use Unicode::UTF8 qw(encode_utf8 decode_utf8);
 
@@ -54,7 +56,10 @@ sub run {
 	}
 	$self->{'_marc_xml_file'} = shift @ARGV;
 	$self->{'_marc_field'} = shift @ARGV;
-	if ($self->{'_marc_field'} ne 'leader' && none { $_ eq $self->{'_marc_field'} } @CONTROL_FIELDS) {
+	if ($self->{'_marc_field'} ne 'leader'
+		&& $self->{'_marc_field'} ne 'material_type'
+		&& none { $_ eq $self->{'_marc_field'} } @CONTROL_FIELDS) {
+
 		$self->{'_marc_subfield'} = shift @ARGV;
 	}
 	$self->{'_marc_value'} = shift @ARGV;
@@ -102,6 +107,13 @@ sub run {
 		if ($self->{'_marc_field'} eq 'leader') {
 			my $leader = $record->leader;
 			push @ret, $self->_match($record, $leader);
+
+		# Material type.
+		} elsif ($self->{'_marc_field'} eq 'material_type') {
+			my $leader_string = $record->leader;
+			my $leader = MARC::Leader->new->parse($leader_string);
+			my $material_type = material_type($leader);
+			push @ret, $self->_match($record, $material_type);
 
 		# Control fields.
 		} elsif (any { $self->{'_marc_field'} eq $_ } @CONTROL_FIELDS) {

@@ -1,5 +1,6 @@
 0.05
  - Add support for filtering by control fields.
+ - Add support for filtering by material type.
  - Improve abstract and description.
  - Regen README file.
  - Move from List::MoreUtils to List::Util.
