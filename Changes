@@ -2,6 +2,7 @@
  - Add support for filtering by control fields.
  - Improve abstract and description.
  - Regen README file.
+ - Move from List::MoreUtils to List::Util.
 
 0.04 2025-04-13T09:05:18+02:00
  - Add -n option to number of output records.

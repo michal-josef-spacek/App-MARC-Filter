@@ -7,7 +7,7 @@ use Class::Utils qw(set_params);
 use English;
 use Error::Pure qw(err);
 use Getopt::Std;
-use List::MoreUtils qw(any none);
+use List::Util 1.33 qw(any none);
 use MARC::File::XML (BinaryEncoding => 'utf8', RecordFormat => 'MARC21');
 use Readonly;
 use Unicode::UTF8 qw(encode_utf8 decode_utf8);
@@ -493,7 +493,7 @@ L<Class::Utils>,
 L<English>,
 L<Error::Pure>,
 L<Getopt::Std>,
-L<List::MoreUtils>,
+L<List::Util>,
 L<MARC::File::XML>,
 L<Readonly>,
 L<Unicode::UTF8>.
