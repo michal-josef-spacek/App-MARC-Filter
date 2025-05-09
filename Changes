@@ -1,4 +1,5 @@
 0.06
+ - Rename example file to better name.
 
 0.05 2025-05-08T18:50:03+02:00
  - Add support for filtering by control fields.

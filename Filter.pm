@@ -253,6 +253,8 @@ Returns 1 for error, 0 for success.
 
 =head1 EXAMPLE
 
+=for comment filename=filter_by_field015a.pl
+
  use strict;
  use warnings;
 
