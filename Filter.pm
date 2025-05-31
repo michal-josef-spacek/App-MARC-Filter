@@ -79,6 +79,7 @@ sub run {
 	my @ret;
 	my $num = 1;
 	$self->{'_num_found'} = 0;
+	$self->{'_printed'} = 0;
 	my $previous_record;
 	while (1) {
 		if (defined $self->{'_opts'}->{'n'} && int($self->{'_opts'}->{'n'}) == $self->{'_num_found'}) {
@@ -106,19 +107,22 @@ sub run {
 		# Leader.
 		if ($self->{'_marc_field'} eq 'leader') {
 			my $leader = $record->leader;
-			push @ret, $self->_match($record, $leader);
+			my $record = $self->_match($record, $leader);
+			$self->_print($record);
 
 		# Material type.
 		} elsif ($self->{'_marc_field'} eq 'material_type') {
 			my $leader_string = $record->leader;
 			my $leader = MARC::Leader->new->parse($leader_string);
 			my $material_type = material_type($leader);
-			push @ret, $self->_match($record, $material_type);
+			my $record = $self->_match($record, $material_type);
+			$self->_print($record);
 
 		# Control fields.
 		} elsif (any { $self->{'_marc_field'} eq $_ } @CONTROL_FIELDS) {
 			my $control_field = $record->field($self->{'_marc_field'});
-			push @ret, $self->_match($record, $control_field->as_string);
+			my $record = $self->_match($record, $control_field->as_string);
+			$self->_print($record);
 
 		# Other.
 		} else {
@@ -126,7 +130,8 @@ sub run {
 			foreach my $field (@fields) {
 				my @subfield_values = $field->subfield($self->{'_marc_subfield'});
 				foreach my $subfield_value (@subfield_values) {
-					push @ret, $self->_match($record, $subfield_value);
+					my $record = $self->_match($record, $subfield_value);
+					$self->_print($record);
 				}
 			}
 		}
@@ -138,24 +143,7 @@ sub run {
 		$num++;
 	}
 
-	# Print out.
-	$num = 0;
-	foreach my $ret (@ret) {
-		if (! $num) {
-			if ($self->{'_opts'}->{'o'} eq 'xml') {
-				print MARC::File::XML::header()."\n";
-			}
-		}
-
-		if ($self->{'_opts'}->{'o'} eq 'xml') {
-			print encode_utf8(MARC::File::XML::record($ret))."\n";
-		} elsif ($self->{'_opts'}->{'o'} eq 'ascii') {
-			print encode_utf8($ret->as_formatted)."\n";
-		}
-
-		$num++;
-	}
-	if ($num) {
+	if ($self->{'_printed'}) {
 		if ($self->{'_opts'}->{'o'} eq 'xml') {
 			print MARC::File::XML::footer()."\n";
 		}
@@ -184,6 +172,30 @@ sub _match {
 	}
 
 	return ();
+}
+
+sub _print {
+	my ($self, $record) = @_;
+
+	if (! defined $record) {
+		return;
+	}
+
+	if (! $self->{'_printed'}) {
+		if ($self->{'_opts'}->{'o'} eq 'xml') {
+			print MARC::File::XML::header()."\n";
+		}
+	}
+
+	if ($self->{'_opts'}->{'o'} eq 'xml') {
+		print encode_utf8(MARC::File::XML::record($record))."\n";
+	} elsif ($self->{'_opts'}->{'o'} eq 'ascii') {
+		print encode_utf8($record->as_formatted)."\n";
+	}
+
+	$self->{'_printed'}++;
+
+	return;
 }
 
 sub _usage {
