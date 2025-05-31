@@ -1,4 +1,4 @@
-0.06
+0.06 2025-05-31T19:20:56+02:00
  - Fix matching for multiple MARC fields.
  - Regen README file.
  - Rename example file to better name.
