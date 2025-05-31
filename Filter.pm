@@ -156,22 +156,22 @@ sub _match {
 	my ($self, $record, $value) = @_;
 
 	if (! defined $value) {
-		return ();
+		return;
 	}
 
 	if ($self->{'_opts'}->{'r'}) {
 		if ($value =~ m/$self->{'_marc_value'}/ms) {
 			$self->{'_num_found'}++;
-			return ($record);
+			return $record;
 		}
 	} else {
 		if ($value eq $self->{'_marc_value'}) {
 			$self->{'_num_found'}++;
-			return ($record);
+			return $record;
 		}
 	}
 
-	return ();
+	return;
 }
 
 sub _print {
