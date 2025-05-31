@@ -1,4 +1,5 @@
 0.06
+ - Fix matching for multiple MARC fields.
  - Regen README file.
  - Rename example file to better name.
  - Rewrite to way with print in time of match.

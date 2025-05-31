@@ -107,33 +107,40 @@ sub run {
 		# Leader.
 		if ($self->{'_marc_field'} eq 'leader') {
 			my $leader = $record->leader;
-			my $record = $self->_match($record, $leader);
-			$self->_print($record);
+			my $record_to_print = $self->_match($record, $leader);
+			$self->_print($record_to_print);
 
 		# Material type.
 		} elsif ($self->{'_marc_field'} eq 'material_type') {
 			my $leader_string = $record->leader;
 			my $leader = MARC::Leader->new->parse($leader_string);
 			my $material_type = material_type($leader);
-			my $record = $self->_match($record, $material_type);
-			$self->_print($record);
+			my $record_to_print = $self->_match($record, $material_type);
+			$self->_print($record_to_print);
 
 		# Control fields.
 		} elsif (any { $self->{'_marc_field'} eq $_ } @CONTROL_FIELDS) {
 			my $control_field = $record->field($self->{'_marc_field'});
-			my $record = $self->_match($record, $control_field->as_string);
-			$self->_print($record);
+			my $record_to_print = $self->_match($record, $control_field->as_string);
+			$self->_print($record_to_print);
 
 		# Other.
 		} else {
 			my @fields = $record->field($self->{'_marc_field'});
+			my $record_to_print;
 			foreach my $field (@fields) {
 				my @subfield_values = $field->subfield($self->{'_marc_subfield'});
 				foreach my $subfield_value (@subfield_values) {
-					my $record = $self->_match($record, $subfield_value);
-					$self->_print($record);
+					$record_to_print = $self->_match($record, $subfield_value);
+					if (defined $record_to_print) {
+						last;
+					}
+				}
+				if (defined $record_to_print) {
+					last;
 				}
 			}
+			$self->_print($record_to_print);
 		}
 
 		if ($self->{'_opts'}->{'v'}) {
