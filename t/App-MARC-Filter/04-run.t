@@ -233,7 +233,7 @@ stdout_is(
 		return;
 	},
 	'',
-	'Run filter for MARC XML file with 1 record (015a = cnb).',
+	'Run filter for MARC XML file with 0 record (015a = cnb).',
 );
 
 # Test.
