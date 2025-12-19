@@ -7,7 +7,7 @@ use Error::Pure::Utils qw(clean);
 use File::Object;
 use File::Spec::Functions qw(abs2rel);
 use Perl6::Slurp qw(slurp);
-use Test::More 'tests' => 20;
+use Test::More 'tests' => 21;
 use Test::NoWarnings;
 use Test::Output;
 use Test::Warn 0.31;
@@ -285,6 +285,19 @@ eval {
 };
 is($EVAL_ERROR, "Output format 'bad' doesn't supported.\n",
 	"Output format 'bad' doesn't supported.");
+clean();
+
+# Test.
+@ARGV = (
+	$data_dir->file('ex1.xml')->s,
+	'material_type',
+	'bad_material_type',
+);
+eval {
+	App::MARC::Filter->new->run;
+};
+is($EVAL_ERROR, "Bad material type.\n",
+	"Bad material type (bad_material_type).");
 clean();
 
 # Test.

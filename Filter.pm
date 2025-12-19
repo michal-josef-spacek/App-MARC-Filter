@@ -10,7 +10,7 @@ use Getopt::Std;
 use List::Util 1.33 qw(any none);
 use MARC::File::XML (BinaryEncoding => 'utf8', RecordFormat => 'MARC21');
 use MARC::Leader;
-use MARC::Leader::Utils qw(material_type);
+use MARC::Leader::Utils 0.02 qw(check_material_type  material_type);
 use Readonly;
 use Unicode::UTF8 qw(encode_utf8 decode_utf8);
 
@@ -74,6 +74,15 @@ sub run {
 	# Check output format.
 	if (none { $self->{'_opts'}->{'o'} eq $_ } @OUTPUT_FORMATS) {
 		err "Output format '$self->{'_opts'}->{'o'}' doesn't supported.";
+	}
+
+	# Check material type.
+	if ($self->{'_marc_field'} eq 'material_type'
+		&& ! check_material_type($self->{'_marc_value'})) {
+
+		err 'Bad material type.',
+			'Value', $self->{'_marc_value'},
+		;
 	}
 
 	my $marc_file = MARC::File::XML->in($self->{'_marc_xml_file'});
