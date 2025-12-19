@@ -42,12 +42,13 @@ sub run {
 	# Process arguments.
 	$self->{'_opts'} = {
 		'h' => 0,
+		'i' => undef,
 		'n' => undef,
 		'o' => 'xml',
 		'r' => 0,
 		'v' => 0,
 	};
-	if (! getopts('hn:o:rv', $self->{'_opts'})
+	if (! getopts('hin:o:rv', $self->{'_opts'})
 		|| $self->{'_opts'}->{'h'}
 		|| @ARGV < 3) {
 
@@ -166,15 +167,29 @@ sub _match {
 		return;
 	}
 
-	if ($self->{'_opts'}->{'r'}) {
-		if ($value =~ m/$self->{'_marc_value'}/ms) {
-			$self->{'_num_found'}++;
-			return $record;
+	if ($self->{'_opts'}->{'i'}) {
+		if ($self->{'_opts'}->{'r'}) {
+			if ($value !~ m/$self->{'_marc_value'}/ms) {
+				$self->{'_num_found'}++;
+				return $record;
+			}
+		} else {
+			if ($value ne $self->{'_marc_value'}) {
+				$self->{'_num_found'}++;
+				return $record;
+			}
 		}
 	} else {
-		if ($value eq $self->{'_marc_value'}) {
-			$self->{'_num_found'}++;
-			return $record;
+		if ($self->{'_opts'}->{'r'}) {
+			if ($value =~ m/$self->{'_marc_value'}/ms) {
+				$self->{'_num_found'}++;
+				return $record;
+			}
+		} else {
+			if ($value eq $self->{'_marc_value'}) {
+				$self->{'_num_found'}++;
+				return $record;
+			}
 		}
 	}
 
@@ -208,8 +223,9 @@ sub _print {
 sub _usage {
 	my $self = shift;
 
-	print STDERR "Usage: $0 [-h] [-n num] [-o format] [-r] [-v] [--version] marc_xml_file search_item [sub_search_item] value\n";
+	print STDERR "Usage: $0 [-h] [-i] [-n num] [-o format] [-r] [-v] [--version] marc_xml_file search_item [sub_search_item] value\n";
 	print STDERR "\t-h\t\tPrint help.\n";
+	print STDERR "\t-i\t\tInvert searching.\n";
 	print STDERR "\t-n num\t\tNumber of records to output (default value is all records).\n";
 	print STDERR "\t-o format\tOutput MARC format. Possible formats are ascii, xml.\n";
 	print STDERR "\t-r\t\tUse value as Perl regexp.\n";

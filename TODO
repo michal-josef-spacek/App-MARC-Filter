@@ -2,7 +2,6 @@ TODO
 ====
 3. Another tests.
 4. Add support for usmarc input.
-9. Add support for negation of rules.
 10.
 
 Applied
@@ -25,3 +24,7 @@ OK [20250508] skim
 
 8. Filter material type.
 OK [20250508] skim
+
+9. Add support for negation of rules.
+-i option.
+OK [20251219] skim

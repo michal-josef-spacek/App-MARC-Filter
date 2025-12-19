@@ -7,7 +7,7 @@ use Error::Pure::Utils qw(clean);
 use File::Object;
 use File::Spec::Functions qw(abs2rel);
 use Perl6::Slurp qw(slurp);
-use Test::More 'tests' => 16;
+use Test::More 'tests' => 20;
 use Test::NoWarnings;
 use Test::Output;
 use Test::Warn 0.31;
@@ -139,6 +139,23 @@ stdout_is(
 
 # Test.
 @ARGV = (
+	'-i',
+	$data_dir->file('ex1.xml')->s,
+	'leader',
+	'     nam a22        450x',
+);
+$right_ret = slurp($data_dir->file('ex1.xml')->s);
+stdout_is(
+	sub {
+		App::MARC::Filter->new->run;
+		return;
+	},
+	$right_ret,
+	'Run filter for MARC XML file with 1 record (leader != \'     nam a22        450x\').',
+);
+
+# Test.
+@ARGV = (
 	$data_dir->file('ex1.xml')->s,
 	'001',
 	'ck8300078',
@@ -155,6 +172,23 @@ stdout_is(
 
 # Test.
 @ARGV = (
+	'-i',
+	$data_dir->file('ex1.xml')->s,
+	'001',
+	'ck8300077',
+);
+$right_ret = slurp($data_dir->file('ex1.xml')->s);
+stdout_is(
+	sub {
+		App::MARC::Filter->new->run;
+		return;
+	},
+	$right_ret,
+	'Run filter for MARC XML file with 1 record (001 != \'ck8300077\').',
+);
+
+# Test.
+@ARGV = (
 	$data_dir->file('ex1.xml')->s,
 	'material_type',
 	'book',
@@ -167,6 +201,23 @@ stdout_is(
 	},
 	$right_ret,
 	'Run filter for MARC XML file with 1 record (material_type = book).',
+);
+
+# Test.
+@ARGV = (
+	'-i',
+	$data_dir->file('ex1.xml')->s,
+	'material_type',
+	'computer_file',
+);
+$right_ret = slurp($data_dir->file('ex1.xml')->s);
+stdout_is(
+	sub {
+		App::MARC::Filter->new->run;
+		return;
+	},
+	$right_ret,
+	'Run filter for MARC XML file with 1 record (material_type != computer_file).',
 );
 
 # Test.
@@ -200,6 +251,24 @@ stdout_is(
 	},
 	$right_ret,
 	'Run filter for MARC XML file with 1 record (015a ~ cnb).',
+);
+
+# Test.
+@ARGV = (
+	'-i',
+	'-r',
+	$data_dir->file('ex1.xml')->s,
+	'015',
+	'a',
+	'cnc',
+);
+stdout_is(
+	sub {
+		App::MARC::Filter->new->run;
+		return;
+	},
+	$right_ret,
+	'Run filter for MARC XML file with 1 record (015a !~ cnc).',
 );
 
 # Test.
@@ -241,8 +310,9 @@ sub help {
 		$script =~ s/\\/\//msg;
 	}
 	my $help = <<"END";
-Usage: $script [-h] [-n num] [-o format] [-r] [-v] [--version] marc_xml_file search_item [sub_search_item] value
+Usage: $script [-h] [-i] [-n num] [-o format] [-r] [-v] [--version] marc_xml_file search_item [sub_search_item] value
 	-h		Print help.
+	-i		Invert searching.
 	-n num		Number of records to output (default value is all records).
 	-o format	Output MARC format. Possible formats are ascii, xml.
 	-r		Use value as Perl regexp.
