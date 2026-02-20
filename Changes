@@ -2,6 +2,7 @@
  - Add -i option for invert searching.
  - Add check of input material_type string.
  - Fix test message.
+ - Update copyright years.
 
 0.06 2025-05-31T19:20:56+02:00
  - Fix matching for multiple MARC fields.
