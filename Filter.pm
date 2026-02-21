@@ -140,14 +140,29 @@ sub run {
 			my $record_to_print;
 			foreach my $field (@fields) {
 				my @subfield_values = $field->subfield($self->{'_marc_subfield'});
-				foreach my $subfield_value (@subfield_values) {
-					$record_to_print = $self->_match($record, $subfield_value);
+				if ($self->{'_opts'}->{'i'}) {
+					my $match = 1;
+					foreach my $subfield_value (@subfield_values) {
+						if (! $self->_match_inverse($record, $subfield_value)) {
+							$match = 0;
+							last;
+						}
+					}
+					if ($match) {
+						$self->{'_num_found'}++;
+						$record_to_print = $record;
+						last;
+					}
+				} else {
+					foreach my $subfield_value (@subfield_values) {
+						$record_to_print = $self->_match($record, $subfield_value);
+						if (defined $record_to_print) {
+							last;
+						}
+					}
 					if (defined $record_to_print) {
 						last;
 					}
-				}
-				if (defined $record_to_print) {
-					last;
 				}
 			}
 			$self->_print($record_to_print);
@@ -203,6 +218,26 @@ sub _match {
 	}
 
 	return;
+}
+
+sub _match_inverse {
+	my ($self, $record, $value) = @_;
+
+	if (! defined $value) {
+		return;
+	}
+
+	if ($self->{'_opts'}->{'r'}) {
+		if ($value !~ m/$self->{'_marc_value'}/ms) {
+			return 1;
+		}
+	} else {
+		if ($value ne $self->{'_marc_value'}) {
+			return 1;
+		}
+	}
+
+	return 0;
 }
 
 sub _print {
