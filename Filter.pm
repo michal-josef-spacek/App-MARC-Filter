@@ -9,6 +9,7 @@ use Error::Pure qw(err);
 use Getopt::Std;
 use List::Util 1.33 qw(any none);
 use MARC::File::XML (BinaryEncoding => 'utf8', RecordFormat => 'MARC21');
+use MARC::File::USMARC;
 use MARC::Leader;
 use MARC::Leader::Utils 0.02 qw(check_material_type  material_type);
 use Readonly;
@@ -55,7 +56,7 @@ sub run {
 		$self->_usage;
 		return 1;
 	}
-	$self->{'_marc_xml_file'} = shift @ARGV;
+	$self->{'_marc_file'} = shift @ARGV;
 	$self->{'_marc_field'} = shift @ARGV;
 	if ($self->{'_marc_field'} ne 'leader'
 		&& $self->{'_marc_field'} ne 'material_type'
@@ -85,7 +86,12 @@ sub run {
 		;
 	}
 
-	my $marc_file = MARC::File::XML->in($self->{'_marc_xml_file'});
+	my $marc_file;
+	if ($self->{'_marc_file'} =~ m/\.xml$/ms) {
+		$marc_file = MARC::File::XML->in($self->{'_marc_file'});
+	} else {
+		$marc_file = MARC::File::USMARC->in($self->{'_marc_file'});
+	}
 	my @ret;
 	my $num = 1;
 	$self->{'_num_found'} = 0;
@@ -267,7 +273,7 @@ sub _print {
 sub _usage {
 	my $self = shift;
 
-	print STDERR "Usage: $0 [-h] [-i] [-n num] [-o format] [-r] [-v] [--version] marc_xml_file search_item [sub_search_item] value\n";
+	print STDERR "Usage: $0 [-h] [-i] [-n num] [-o format] [-r] [-v] [--version] marc_file search_item [sub_search_item] value\n";
 	print STDERR "\t-h\t\tPrint help.\n";
 	print STDERR "\t-i\t\tInvert searching.\n";
 	print STDERR "\t-n num\t\tNumber of records to output (default value is all records).\n";
@@ -275,7 +281,7 @@ sub _usage {
 	print STDERR "\t-r\t\tUse value as Perl regexp.\n";
 	print STDERR "\t-v\t\tVerbose mode.\n";
 	print STDERR "\t--version\tPrint version.\n";
-	print STDERR "\tmarc_xml_file\tMARC XML file.\n";
+	print STDERR "\tmarc_file\tMARC XML or USMARC file.\n";
 	print STDERR "\tsearch_item\tSearch item.\n";
 	print STDERR "\tsub_search_item\tSearch sub item (required in case of MARC field).\n";
 	print STDERR "\tvalue\t\tValue to filter.\n";

@@ -7,7 +7,7 @@ use Error::Pure::Utils qw(clean);
 use File::Object;
 use File::Spec::Functions qw(abs2rel);
 use Perl6::Slurp qw(slurp);
-use Test::More 'tests' => 21;
+use Test::More 'tests' => 22;
 use Test::NoWarnings;
 use Test::Output;
 use Test::Warn 0.31;
@@ -316,6 +316,22 @@ stderr_like(
 	'Run filter for MARC XML file with 1 record (with error).',
 );
 
+# Test.
+@ARGV = (
+	$data_dir->file('ex4.mrc')->s,
+	'leader',
+	'01262nam a2200337   4500',
+);
+$right_ret = slurp($data_dir->file('ex4.xml')->s);
+stdout_is(
+	sub {
+		App::MARC::Filter->new->run;
+		return;
+	},
+	$right_ret,
+	'Run filter for MARC USMARC file with 1 record (leader = \'01262nam a2200337   4500\').',
+);
+
 sub help {
 	my $script = abs2rel(File::Object->new->file('04-run.t')->s);
 	# XXX Hack for missing abs2rel on Windows.
@@ -323,7 +339,7 @@ sub help {
 		$script =~ s/\\/\//msg;
 	}
 	my $help = <<"END";
-Usage: $script [-h] [-i] [-n num] [-o format] [-r] [-v] [--version] marc_xml_file search_item [sub_search_item] value
+Usage: $script [-h] [-i] [-n num] [-o format] [-r] [-v] [--version] marc_file search_item [sub_search_item] value
 	-h		Print help.
 	-i		Invert searching.
 	-n num		Number of records to output (default value is all records).
@@ -331,7 +347,7 @@ Usage: $script [-h] [-i] [-n num] [-o format] [-r] [-v] [--version] marc_xml_fil
 	-r		Use value as Perl regexp.
 	-v		Verbose mode.
 	--version	Print version.
-	marc_xml_file	MARC XML file.
+	marc_file	MARC XML or USMARC file.
 	search_item	Search item.
 	sub_search_item	Search sub item (required in case of MARC field).
 	value		Value to filter.

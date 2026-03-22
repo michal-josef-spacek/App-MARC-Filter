@@ -1,7 +1,6 @@
 TODO
 ====
 3. Another tests.
-4. Add support for usmarc input.
 10. Review of matching (normal vs inverse).
 11. Improve search field to 'material' or 'leader' or field definition like '001', '045##$a','045$a', '0451#$a' etc.
     I need to create definition and helper for handling. -> MARC::Filter.
@@ -31,3 +30,6 @@ OK [20250508] skim
 9. Add support for negation of rules.
 -i option.
 OK [20251219] skim
+
+4. Add support for usmarc input.
+OK [20260322] skim
