@@ -1,4 +1,4 @@
-0.08
+0.08 2026-03-22T14:01:22+01:00
  - Add support for usmarc file in input.
  - Add test for ascii output.
  - Simplify code to better cover testing.
