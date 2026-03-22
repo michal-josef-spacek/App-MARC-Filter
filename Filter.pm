@@ -18,7 +18,7 @@ use Unicode::UTF8 qw(encode_utf8 decode_utf8);
 Readonly::Array our @OUTPUT_FORMATS => qw(ascii xml);
 Readonly::Array our @CONTROL_FIELDS => qw(001 003 005 006 007 008);
 
-our $VERSION = 0.08;
+our $VERSION = 0.09;
 
 $| = 1;
 
@@ -616,6 +616,6 @@ BSD 2-Clause License
 
 =head1 VERSION
 
-0.08
+0.09
 
 =cut
