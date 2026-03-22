@@ -1,5 +1,6 @@
 0.08
  - Add support for usmarc file in input.
+ - Add test for ascii output.
 
 0.07 2026-02-21T17:53:50+01:00
  - Add -i option for invert searching.

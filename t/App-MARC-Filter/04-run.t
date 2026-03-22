@@ -7,7 +7,7 @@ use Error::Pure::Utils qw(clean);
 use File::Object;
 use File::Spec::Functions qw(abs2rel);
 use Perl6::Slurp qw(slurp);
-use Test::More 'tests' => 22;
+use Test::More 'tests' => 23;
 use Test::NoWarnings;
 use Test::Output;
 use Test::Warn 0.31;
@@ -330,6 +330,24 @@ stdout_is(
 	},
 	$right_ret,
 	'Run filter for MARC USMARC file with 1 record (leader = \'01262nam a2200337   4500\').',
+);
+
+# Test.
+@ARGV = (
+	'-o',
+	'ascii',
+	$data_dir->file('ex4.mrc')->s,
+	'leader',
+	'01262nam a2200337   4500',
+);
+$right_ret = slurp($data_dir->file('ex4.ascii')->s);
+stdout_is(
+	sub {
+		App::MARC::Filter->new->run;
+		return;
+	},
+	$right_ret,
+	'Run filter for MARC USMARC file with 1 record with ascii output (leader = \'01262nam a2200337   4500\').',
 );
 
 sub help {
