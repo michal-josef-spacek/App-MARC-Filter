@@ -261,7 +261,8 @@ sub _print {
 
 	if ($self->{'_opts'}->{'o'} eq 'xml') {
 		print encode_utf8(MARC::File::XML::record($record))."\n";
-	} elsif ($self->{'_opts'}->{'o'} eq 'ascii') {
+	# 'ascii' output.
+	} else {
 		print encode_utf8($record->as_formatted)."\n";
 	}
 
