@@ -478,9 +478,10 @@ Returns 1 for error, 0 for success.
  Y3Rpb24+Cg==
  END
 
- my ($temp_file, $temp_file_fh) = tempfile();
+ my ($temp_file_fh, $temp_file) = tempfile(SUFFIX => '.xml');
 
  barf($temp_file_fh, decode_base64($marc_xml_example));
+ close($temp_file_fh);
 
  # Arguments.
  @ARGV = (
