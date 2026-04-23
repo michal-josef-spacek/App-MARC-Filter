@@ -97,7 +97,7 @@ sub run {
 		return 1;
 	}
 	my ($marc_batch, $stream);
-	if ($self->{'_marc_file'} =~ m/\.xml$/ms) {
+	if ($self->{'_marc_file'} =~ m/\.xml/ms) {
 		$stream = 'XML';
 		$marc_batch = eval {
 			MARC::Batch->new('XML', $fh);

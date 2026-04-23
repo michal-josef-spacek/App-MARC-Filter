@@ -1,5 +1,6 @@
 0.10
  - Add tests for compression.
+ - Fix detection of XML file.
 
 0.09 2026-04-15T17:48:28+02:00
  - Add support for compressed input file.
