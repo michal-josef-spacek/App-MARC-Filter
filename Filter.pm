@@ -631,7 +631,10 @@ L<Getopt::Std>,
 L<IO::Uncompress::AnyUncompress>,
 L<List::Util>,
 L<MARC::Batch>,
+L<MARC::File::USMARC>,
 L<MARC::File::XML>,
+L<MARC::Leader>,
+L<MARC::Leader::Utils>,
 L<Readonly>,
 L<Unicode::UTF8>.
 
