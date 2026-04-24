@@ -1,0 +1,4 @@
+*.mrc binary
+*.mrc.gz binary
+*.bz2 binary
+*.ascii text eol=lf
