@@ -1,4 +1,5 @@
 0.11
+ - Add info about input file compression.
  - Fix NAME in doc.
  - Fix DEPENDENCIES section in doc.
  - Sort modules.

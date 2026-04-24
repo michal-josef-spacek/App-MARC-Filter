@@ -397,7 +397,7 @@ Usage: $script [-h] [-i] [-n num] [-o format] [-r] [-v] [--version] marc_file se
 	-r		Use value as Perl regexp.
 	-v		Verbose mode.
 	--version	Print version.
-	marc_file	MARC XML or USMARC file.
+	marc_file	MARC XML or USMARC file, could be compressed.
 	search_item	Search item.
 	sub_search_item	Search sub item (required in case of MARC field).
 	value		Value to filter.

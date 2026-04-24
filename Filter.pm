@@ -316,7 +316,7 @@ sub _usage {
 	print STDERR "\t-r\t\tUse value as Perl regexp.\n";
 	print STDERR "\t-v\t\tVerbose mode.\n";
 	print STDERR "\t--version\tPrint version.\n";
-	print STDERR "\tmarc_file\tMARC XML or USMARC file.\n";
+	print STDERR "\tmarc_file\tMARC XML or USMARC file, could be compressed.\n";
 	print STDERR "\tsearch_item\tSearch item.\n";
 	print STDERR "\tsub_search_item\tSearch sub item (required in case of MARC field).\n";
 	print STDERR "\tvalue\t\tValue to filter.\n";

@@ -40,6 +40,10 @@ ARGUMENTS
 
             MARC XML or USMARC file name.
 
+            Input file could be compressed by IO::Uncompress::AnyUncompress
+            module. Possibility is to uncompress gzip, zip, bzip2, zstd, xz,
+            lzma, lzip, lzf or lzop.
+
     *       "search_item"
 
             Search item could be MARC control field or MARC field or

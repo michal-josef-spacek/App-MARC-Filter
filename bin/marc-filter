@@ -69,6 +69,10 @@ Print version of script.
 
 MARC XML or USMARC file name.
 
+Input file could be compressed by L<IO::Uncompress::AnyUncompress> module.
+Possibility is to uncompress gzip, zip, bzip2, zstd, xz, lzma, lzip, lzf or
+lzop.
+
 =item * C<search_item>
 
 Search item could be MARC control field or MARC field or 'leader' string or
