@@ -335,7 +335,7 @@ __END__
 
 =head1 NAME
 
-App::MARC::Filter - Base class for marc-count script.
+App::MARC::Filter - Base class for L<marc-filter> script.
 
 =head1 SYNOPSIS
 
