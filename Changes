@@ -1,4 +1,5 @@
 0.11
+ - Add ACKNOWLEDGEMENTS section to doc.
  - Add info about input file compression.
  - Fix NAME in doc.
  - Fix DEPENDENCIES section in doc.
