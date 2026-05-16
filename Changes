@@ -3,6 +3,7 @@
  - Add info about input file compression.
  - Fix NAME in doc.
  - Fix DEPENDENCIES section in doc.
+ - Remove XXX from tests.
  - Sort modules.
 
 0.10 2026-04-23T19:46:22+02:00
