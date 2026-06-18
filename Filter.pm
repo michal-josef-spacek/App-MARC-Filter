@@ -371,7 +371,9 @@ Returns 1 for error, 0 for success.
  run():
          Output format '%s' doesn't supported.
 
-=head1 EXAMPLE
+=head1 EXAMPLES
+
+=head2 EXAMPLE
 
 =for comment filename=filter_by_field015a.pl
 
