@@ -2,7 +2,7 @@ NAME
     marc-filter - Tool to filter records in MARC dataset.
 
 SYNOPSIS
-     marc-filter [-h] [-i] [-n num] [-o format] [-r] [--version] marc_file search_item [sub_search_item] value
+     marc-filter [-e] [-h] [-i] [-n num] [-o format] [-r] [--version] marc_file search_item [sub_search_item] [value]
 
 DESCRIPTION
     Tool to filter MARC records in big datasets. Could filter by control
@@ -12,6 +12,10 @@ DESCRIPTION
     It supports MARC XML and USMARC files now.
 
 ARGUMENTS
+    *       "-e"
+
+            Match field/subfield existence.
+
     *       "-h"
 
             Print help.
@@ -71,11 +75,12 @@ ARGUMENTS
 
     *       "sub_search_item"
 
-            In the case of MARC field this could be a subfield.
+            In the case of MARC field this could be a subfield. It's
+            optional with "-e".
 
     *       "value"
 
-            Value to filter.
+            Value to filter. It's required without "-e".
 
 REPOSITORY
     <https://github.com/michal-josef-spacek/App-MARC-Filter>

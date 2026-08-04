@@ -28,7 +28,7 @@ marc-filter - Tool to filter records in MARC dataset.
 
 =head1 SYNOPSIS
 
- marc-filter [-h] [-i] [-n num] [-o format] [-r] [--version] marc_file search_item [sub_search_item] value
+ marc-filter [-e] [-h] [-i] [-n num] [-o format] [-r] [--version] marc_file search_item [sub_search_item] [value]
 
 =head1 DESCRIPTION
 
@@ -40,6 +40,10 @@ It supports MARC XML and USMARC files now.
 =head1 ARGUMENTS
 
 =over 8
+
+=item * C<-e>
+
+Match field/subfield existence.
 
 =item * C<-h>
 
@@ -105,10 +109,12 @@ Possible material type strings are:
 =item * C<sub_search_item>
 
 In the case of MARC field this could be a subfield.
+It's optional with C<-e>.
 
 =item * C<value>
 
 Value to filter.
+It's required without C<-e>.
 
 =back
 
