@@ -20,7 +20,7 @@ use Unicode::UTF8 qw(encode_utf8 decode_utf8);
 Readonly::Array our @OUTPUT_FORMATS => qw(ascii xml);
 Readonly::Array our @CONTROL_FIELDS => qw(001 003 005 006 007 008);
 
-our $VERSION = 0.11;
+our $VERSION = 0.12;
 
 $| = 1;
 
@@ -720,6 +720,6 @@ the Czech Republic (DKRVO 2024–2028), Area 11: Linked Open Data.
 
 =head1 VERSION
 
-0.11
+0.12
 
 =cut
