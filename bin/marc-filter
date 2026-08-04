@@ -28,7 +28,7 @@ marc-filter - Tool to filter records in MARC dataset.
 
 =head1 SYNOPSIS
 
- marc-filter [-h] [-n num] [-o format] [-r] [--version] marc_file search_item [sub_search_item] value
+ marc-filter [-h] [-i] [-n num] [-o format] [-r] [--version] marc_file search_item [sub_search_item] value
 
 =head1 DESCRIPTION
 
@@ -44,6 +44,10 @@ It supports MARC XML and USMARC files now.
 =item * C<-h>
 
 Print help.
+
+=item * C<-i>
+
+Invert searching.
 
 =item * C<-n num>
 

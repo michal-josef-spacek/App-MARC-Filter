@@ -2,7 +2,7 @@ NAME
     marc-filter - Tool to filter records in MARC dataset.
 
 SYNOPSIS
-     marc-filter [-h] [-n num] [-o format] [-r] [--version] marc_file search_item [sub_search_item] value
+     marc-filter [-h] [-i] [-n num] [-o format] [-r] [--version] marc_file search_item [sub_search_item] value
 
 DESCRIPTION
     Tool to filter MARC records in big datasets. Could filter by control
@@ -15,6 +15,10 @@ ARGUMENTS
     *       "-h"
 
             Print help.
+
+    *       "-i"
+
+            Invert searching.
 
     *       "-n num"
 
