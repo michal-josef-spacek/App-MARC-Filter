@@ -3,8 +3,8 @@
  - Add ACKNOWLEDGEMENTS section to doc.
  - Add info about input file compression.
  - Fix -i option in doc.
- - Fix NAME in doc.
  - Fix DEPENDENCIES section in doc.
+ - Fix NAME in doc.
  - Remove XXX from tests.
  - Rewrite doc to use of =head1 EXAMPLES.
  - Sort modules.
