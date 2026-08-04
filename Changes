@@ -1,4 +1,4 @@
-0.11
+0.11 2026-08-04T21:24:05+02:00
  - Add -e option to match existence/non-existence of field.
  - Add ACKNOWLEDGEMENTS section to doc.
  - Add info about input file compression.
