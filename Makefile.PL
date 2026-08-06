@@ -26,6 +26,7 @@ requires 'Getopt::Std' => 0;
 requires 'IO::Uncompress::AnyUncompress' => 0;
 requires 'List::Util' => 1.33;
 requires 'MARC::Batch' => 0;
+requires 'MARC::Field008' => 0;
 requires 'MARC::File::USMARC' => 0;
 requires 'MARC::File::XML' => '1.0.4';
 requires 'MARC::Leader' => 0;
