@@ -7,7 +7,7 @@ use Error::Pure::Utils qw(clean);
 use File::Object;
 use File::Spec::Functions qw(abs2rel);
 use Perl6::Slurp qw(slurp);
-use Test::More 'tests' => 35;
+use Test::More 'tests' => 38;
 use Test::NoWarnings;
 use Test::Output;
 use Test::Warn 0.31;
@@ -303,6 +303,54 @@ stdout_is(
 	},
 	$right_ret,
 	'Run filter for MARC XML file with 1 record (008.date2 = \'    \').',
+);
+
+# Test.
+@ARGV = (
+	$data_dir->file('ex1.xml')->s,
+	'008.date1',
+	'1980..1985',
+);
+$right_ret = slurp($data_dir->file('ex1.xml')->s);
+stdout_is(
+	sub {
+		App::MARC::Filter->new->run;
+		return;
+	},
+	$right_ret,
+	'Run filter for MARC XML file with 1 record (008.date1 in range 1980..1985).',
+);
+
+# Test.
+@ARGV = (
+	$data_dir->file('ex1.xml')->s,
+	'008.date1',
+	'1983..1985',
+);
+stdout_is(
+	sub {
+		App::MARC::Filter->new->run;
+		return;
+	},
+	'',
+	'Run filter for MARC XML file with 0 record (008.date1 not in range 1983..1985).',
+);
+
+# Test.
+@ARGV = (
+	'-i',
+	$data_dir->file('ex1.xml')->s,
+	'008.date1',
+	'1983..1985',
+);
+$right_ret = slurp($data_dir->file('ex1.xml')->s);
+stdout_is(
+	sub {
+		App::MARC::Filter->new->run;
+		return;
+	},
+	$right_ret,
+	'Run inverse filter for MARC XML file with 1 record (008.date1 not in range 1983..1985).',
 );
 
 # Test.

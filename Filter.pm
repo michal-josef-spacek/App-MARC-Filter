@@ -23,6 +23,7 @@ Readonly::Array our @CONTROL_FIELDS => qw(001 003 005 006 007 008);
 Readonly::Array our @FIELD_008_METHODS => qw(cataloging_source date1 date2
 	date_entered_on_file language modified_record place_of_publication
 	type_of_date);
+Readonly::Array our @FIELD_008_DATE_METHODS => qw(date1 date2);
 
 our $VERSION = 0.12;
 
@@ -198,7 +199,7 @@ sub run {
 				} else {
 					$value = defined $control_field ? $control_field->as_string : undef;
 				}
-				$record_to_print = $self->_match($record, $value);
+				$record_to_print = $self->_match_field_008($record, $value);
 			}
 			$self->_print($record_to_print);
 
@@ -362,6 +363,49 @@ sub _field_008_value {
 	}
 
 	return $field_008_obj->${\$self->{'_marc_field008_method'}};
+}
+
+sub _is_field_008_date_method {
+	my $self = shift;
+
+	return defined $self->{'_marc_field008_method'}
+		&& any { $self->{'_marc_field008_method'} eq $_ } @FIELD_008_DATE_METHODS;
+}
+
+sub _match_field_008 {
+	my ($self, $record, $value) = @_;
+
+	if (! defined $self->{'_marc_field008_method'}) {
+		return $self->_match($record, $value);
+	}
+	if ($self->{'_opts'}->{'r'} || ! $self->_is_field_008_date_method) {
+		return $self->_match($record, $value);
+	}
+
+	return $self->_match_range($record, $value);
+}
+
+sub _match_range {
+	my ($self, $record, $value) = @_;
+
+	my ($from, $to) = $self->{'_marc_value'} =~ m/^(\d{4})\.\.(\d{4})$/ms;
+	if (! defined $from || ! defined $to) {
+		return $self->_match($record, $value);
+	}
+	if (! defined $value || $value !~ m/^\d{4}$/ms) {
+		return;
+	}
+
+	my $match = $from <= $value && $value <= $to ? 1 : 0;
+	if ($self->{'_opts'}->{'i'}) {
+		$match = ! $match;
+	}
+	if ($match) {
+		$self->{'_num_found'}++;
+		return $record;
+	}
+
+	return;
 }
 
 sub _open_marc_input {

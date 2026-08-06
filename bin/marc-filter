@@ -139,6 +139,8 @@ It's optional with C<-e>.
 =item * C<value>
 
 Value to filter.
+For C<008.date1> and C<008.date2> it's possible to use range syntax in the
+form C<YYYY..YYYY>.
 It's required without C<-e>.
 
 =back
