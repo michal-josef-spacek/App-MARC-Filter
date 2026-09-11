@@ -16,7 +16,7 @@ use MARC::File::XML (BinaryEncoding => 'utf8', RecordFormat => 'MARC21');
 use MARC::Leader;
 use MARC::Leader::Utils 0.02 qw(check_material_type  material_type);
 use Readonly;
-use Unicode::UTF8 qw(encode_utf8 decode_utf8);
+use Unicode::UTF8 qw(decode_utf8 encode_utf8);
 
 Readonly::Array our @OUTPUT_FORMATS => qw(ascii xml);
 Readonly::Array our @CONTROL_FIELDS => qw(001 003 005 006 007 008);
