@@ -100,9 +100,9 @@ ARGUMENTS
 
     *       "value"
 
-            Value to filter. For "008.date1" and "008.date2" it's possible to
-            use range syntax in the form "YYYY..YYYY". It's required without
-            "-e".
+            Value to filter. For "008.date1" and "008.date2" it's possible
+            to use range syntax in the form "YYYY..YYYY". It's required
+            without "-e".
 
 REPOSITORY
     <https://github.com/michal-josef-spacek/App-MARC-Filter>
@@ -126,3 +126,4 @@ ACKNOWLEDGEMENTS
 
 VERSION
     0.13
+
