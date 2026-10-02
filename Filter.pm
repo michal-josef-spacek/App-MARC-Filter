@@ -126,18 +126,15 @@ sub run {
 		}
 		return 1;
 	}
-	my ($marc_batch, $stream);
+	my $stream;
 	if ($self->{'_marc_file'} =~ m/\.xml/ms) {
 		$stream = 'XML';
-		$marc_batch = eval {
-			MARC::Batch->new('XML', $fh);
-		};
 	} else {
 		$stream = 'USMARC';
-		$marc_batch = eval {
-			MARC::Batch->new('USMARC', $fh);
-		};
 	}
+	my $marc_batch = eval {
+		MARC::Batch->new($stream, $fh);
+	};
 	if ($EVAL_ERROR) {
 		print STDERR "Cannot open MARC $stream stream.\n";
 		print STDERR "\tError: $EVAL_ERROR\n";

@@ -1,5 +1,6 @@
 0.13
  - Add error tests for -e option checks.
+ - Code optimization.
  - Regen README file.
  - Sort subroutines in use.
 
