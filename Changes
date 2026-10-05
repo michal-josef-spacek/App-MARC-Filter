@@ -3,6 +3,7 @@
  - Code optimization.
  - Regen README file.
  - Sort subroutines in use.
+ - Update author email.
 
 0.12 2026-08-07T10:09:35+02:00
  - Add support for range search on field 008 date1 and date2.
