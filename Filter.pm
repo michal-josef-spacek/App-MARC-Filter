@@ -25,7 +25,7 @@ Readonly::Array our @FIELD_008_METHODS => qw(cataloging_source date1 date2
 	type_of_date);
 Readonly::Array our @FIELD_008_DATE_METHODS => qw(date1 date2);
 
-our $VERSION = 0.13;
+our $VERSION = 0.14;
 
 $| = 1;
 
@@ -805,6 +805,6 @@ the Czech Republic (DKRVO 2024–2028), Area 11: Linked Open Data.
 
 =head1 VERSION
 
-0.13
+0.14
 
 =cut
